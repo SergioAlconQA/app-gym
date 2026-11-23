@@ -322,7 +322,7 @@ function renderDayEditor(app) {
     <div class="ex-item">
       <div style="flex:1;min-width:0">
         <div class="name">${esc(e.name)}</div>
-        <div class="meta">${e.sets} series x ${e.reps || '–'} reps${e.note ? ' · nota: ' + esc(e.note) : ''}</div>
+        <div class="meta">${e.sets} series x ${e.reps || 10} reps${e.note ? ' · nota: ' + esc(e.note) : ''}</div>
       </div>
       <button class="icon-btn" data-up="${i}" aria-label="Subir" ${i === 0 ? 'disabled' : ''}>${I.up}</button>
       <button class="icon-btn" data-down="${i}" aria-label="Bajar" ${i === day.exercises.length - 1 ? 'disabled' : ''}>${I.down}</button>
@@ -405,7 +405,7 @@ function startWorkout(dayId) {
   const idx = S.days.indexOf(day);
   const s = {
     id: uid(), dayId, dayName: day.name || ('Día ' + (idx + 1)), date: new Date().toISOString(), finished: false,
-    entries: day.exercises.map(e => ({ exId: e.id, exName: e.name, note: e.note, target: e.reps || null, sets: Array.from({ length: e.sets }, () => ({ kg: '', reps: '', done: false })), feel: '' }))
+    entries: day.exercises.map(e => ({ exId: e.id, exName: e.name, note: e.note, target: e.reps || 10, sets: Array.from({ length: e.sets }, () => ({ kg: '', reps: '', done: false })), feel: '' }))
   };
   S.sessions.push(s); S.activeId = s.id; persist(true);
   slideIdx = 0; go({ name: 'workout' });
